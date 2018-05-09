@@ -11,23 +11,20 @@
 |
 */
 
-Route::get('welcome', function () {
+Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/', 'PostController@index')->name('blog');
-
+Route::get('/home', 'HomeController@index')->name('home');
 
 Auth::routes();
 
-
 Route::get('/author/{user}', 'AuthorController@author')->name('author');
-Route::get('/post/{post}', 'PostController@post')->name('post');
-Route::post('/post/create', 'PostController@store');
+
+Route::resource('/post', 'PostController');
 Route::post('/comment/create/{id}', 'CommentController@store');
 Route::put('/comment/update/{id}', 'CommentController@update');
-Route::post('/post/{post}/edit', 'PostController@edit')->name('post_edit');
-Route::put('/post/{post}/update', 'PostController@update');
-Route::delete('/post/{post}/delete', 'PostController@destroy')->name('post_delete');
+
+
 
 

@@ -17,7 +17,6 @@ class PostController extends Controller
      */
     public function index()
     {
-        
         $posts = Post::latest()->with('user', 'comments')->paginate(5);
         return view('index', compact('posts'));
     }
@@ -34,7 +33,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -63,7 +62,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        //
+        return view('post', compact('post'));
     }
 
     /**
@@ -86,14 +85,13 @@ class PostController extends Controller
      */
     public function update(PostRequest $request, $id)
     {
-
         $post = Post::find($id);
         $post->user_id = Auth::user()->id;
         $post->title = $request['title'];
         $post->content = $request['content'];
         $post->save();
 
-        return redirect()->route('post', $post->id);
+        return back()->with('message', 'post updated');
     }
 
     /**
@@ -108,6 +106,6 @@ class PostController extends Controller
         if($post) {
             $post->delete();
         }
-        return redirect()->back()->with(['message' => 'post deleted']);
+        return back()->with(['message' => 'post deleted']);
     }
 }

@@ -4,11 +4,7 @@
 @section('title', 'Home')
 
 @section('content')
-    @if(Session::has('message'))
-        <div class="alert alert-danger text-center">
-            {{ Session::get('message') }}
-        </div>
-    @endif
+    @include ('partials.message')
 
     <h1 class="text-center">welcome to my blog</h1>
 
@@ -16,13 +12,10 @@
         @include ('partials.errors')        
         @foreach($posts as $post)
             <div class="blog-post">
-                <h2 class="blog-post-title"><a href="{{ route('post', $post->id) }}">{{ $post->title }}</a></h2>
+                <h2 class="blog-post-title"><a href="/post/{{ $post->id }}">{{ $post->title }}</a></h2>
                 @if(Auth::id() == $post->user->id)
-                    <form action="{{ route('post_edit' , $post->id ) }}" method="POST" class="float-left">
-                        {{ csrf_field() }}
-                        <button class="btn btn-dark" type="submit">edit</button>
-                    </form>
-                    <form action="{{ route('post_delete', $post->id) }}" method="POST" class="float-left ml-2">
+                    <a href="/post/{{ $post->id }}/edit" class="btn btn-dark float-left">edit</a>
+                    <form action="/post/{{ $post->id }}" method="POST" class="float-left ml-2">
                         {{ csrf_field() }}
                         {{ method_field('DELETE') }}
                         <button class="btn btn-danger" type="submit">delete</button>
