@@ -36,19 +36,18 @@ class CommentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CommentRequest $request, $id  )
+    public function store(CommentRequest $request, Post $post )
     {
-       
-        $post = Post::find($id);
         if( $post) {
             $comment = new Comment;
             $comment->user_id = Auth::user()->id;
-            $comment->post_id = $id;
+            $comment->post_id = $post->id;
+            // $comment->post_id = $request->get('post_id');  // this method causes bad injection
             $comment->content = $request->get('content');
             $comment->save();
         }
 
-         return redirect()->back();
+         return back();
     }
 
     /**

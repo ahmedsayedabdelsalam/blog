@@ -34,8 +34,9 @@
                     @endforeach
                 </ul>
             </div>
-            <form method="POST" action="/comment/create/{{$post->id}}">
+            <form method="POST" action="post/{{ $post->id }}/comment">
                 {{ csrf_field() }}
+                {{-- <input type="hidden" name="post_id" value="{{ $post->id }}"> this term is wrong can cause injection --}}
                 <div class="form-group">
                     <label for="content">Comment Content</label>
                     <textarea class="form-control" name="content" id="content" cols="30" rows="3" placeholder="comment content" required></textarea>

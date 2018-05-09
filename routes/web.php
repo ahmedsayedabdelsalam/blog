@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Routing\RouteGroup;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,8 +24,10 @@ Auth::routes();
 Route::get('/author/{user}', 'AuthorController@author')->name('author');
 
 Route::resource('/post', 'PostController');
-Route::post('/comment/create/{id}', 'CommentController@store');
-Route::put('/comment/update/{id}', 'CommentController@update');
+
+Route::resource('post/{post}/comment', 'CommentController');
+
+
 
 
 

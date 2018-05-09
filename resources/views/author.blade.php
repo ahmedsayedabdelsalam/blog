@@ -70,7 +70,7 @@
                                 @endforeach
                             </ul>
                         </div>
-                        <form method="POST" action="/comment/create/{{$post->id}}">
+                        <form method="POST" action="post/{{ $post->id }}/comment">
                             {{ csrf_field() }}
                             <div class="form-group">
                                 <label for="content">Comment Content</label>

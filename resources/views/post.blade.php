@@ -29,5 +29,13 @@
                 @endforeach
             </ul>
         </div>
+        <form method="POST" action="post/{{ $post->id }}/comment">
+            {{ csrf_field() }}
+            <div class="form-group">
+                <label for="content">Comment Content</label>
+                <textarea class="form-control" name="content" id="content" cols="30" rows="3" placeholder="comment content" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Comment</button>
+        </form>
     </div>
 @endsection
