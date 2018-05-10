@@ -27,6 +27,12 @@ Route::resource('/post', 'PostController');
 
 Route::resource('post/{post}/comment', 'CommentController');
 
+Route::post('like/{type}/up', 'LikeController@postUp');
+Route::delete('like/{type}/down', 'LikeController@postDown');
+/* Route::post('comment/likes/up', 'LikeController@commentUp');
+Route::delete('comment/likes/down', 'LikeController@commentDown'); */
+
+
 
 
 

@@ -24,12 +24,48 @@
                 @endif
                 <p class="blog-post-meta">{{ $post->created_at->diffForHumans() }} by <a href="{{ route('author', $post->user->id) }}">{{ $post->user->name }}</a></p>
                 <p>{{ $post->content }}</p>
+                <div class="likesys">
+                    <form action="like/Post/up" method="POST">
+                        {{ csrf_field() }}
+                        <input type="hidden" name="likeable_id" value="{{ $post->id }}">
+                        <input type="submit" value="up">
+                    </form>
+                    @if( count($post->likes)>0 )
+                        {{ count($post->likes) }}
+                    @else
+                        {{ 0 }}
+                    @endif
+                    <form action="like/Post/down" method="POST">
+                        {{ csrf_field() }}
+                        {{ method_field('Delete') }}
+                        <input type="hidden" name="likeable_id" value="{{ $post->id }}">
+                        <input type="submit" value="down">
+                    </form>
+                </div>
                 <ul>
                     @foreach($post->comments->reverse() as $comment)
                         <li>
                             <strong><a href="{{ route('author', $comment->user->id) }}">{{ $comment->user->name }}</a></strong>
                             <u>({{ $comment->created_at->diffForHumans() }})</u>
                             {{ $comment->content }}
+                            <div class="likesys">
+                                <form action="like/Comment/up" method="POST">
+                                    {{ csrf_field() }}
+                                    <input type="hidden" name="likeable_id" value="{{ $comment->id }}">
+                                    <input type="submit" value="up">
+                                </form>
+                                @if( count($comment->likes)>0 )
+                                    {{ count($comment->likes) }}
+                                @else
+                                    {{ 0 }}
+                                @endif
+                                <form action="like/Comment/down" method="POST">
+                                    {{ csrf_field() }}
+                                    {{ method_field('Delete') }}
+                                    <input type="hidden" name="likeable_id" value="{{ $comment->id }}">
+                                    <input type="submit" value="down">
+                                </form>
+                            </div>
                         </li>
                     @endforeach
                 </ul>
