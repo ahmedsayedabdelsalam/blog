@@ -25,6 +25,18 @@
                         <p>your email: <strong>{{ $user->email }}</strong></p>
                         <p>your have: <strong>{{ $user->posts->count() }} Posts</strong></p>
                         <p>your have: <strong>{{ $user->comments->count() }} Comments</strong></p>
+                        <img src="{{ asset('storage/user_images/' . $user->image) }}" alt="profile pic" width="150" height="150">
+                        @if (session('status'))
+                            <div class="alert alert-success">
+                                {{ session('status') }}
+                            </div>
+                        @endif
+                        <form action="/author/{{ $user->id }}/upload" method="POST" enctype="multipart/form-data">
+                            Select image to upload:
+                            {{ csrf_field() }}
+                            <input type="file" name="image" id="image">
+                            <input type="submit" value="Upload Image" name="submit">
+                        </form>
                         <form method="POST" action="/post">
                             {{ csrf_field() }}
                             <div class="form-group">
@@ -42,6 +54,7 @@
                         <p>email: <strong>{{ $user->email }}</strong></p>
                         <p>he have: <strong>{{ $user->posts->count() }} Posts</strong></p>
                         <p>he have: <strong>{{ $user->comments->count() }} Comments</strong></p>
+                        <img src="{{ asset('storage/user_images/' . $user->image) }}" alt="profile pic" width="150" height="150">
                     @endif
                     
                     <hr>

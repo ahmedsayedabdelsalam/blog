@@ -35,6 +35,7 @@ Route::delete('comment/likes/down', 'LikeController@commentDown'); */
 
 
 
+Route::post('/author/{id}/upload', 'AuthorController@profilePic');
 
 
 

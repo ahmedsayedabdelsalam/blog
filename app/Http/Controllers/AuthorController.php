@@ -85,8 +85,7 @@ class AuthorController extends Controller
         return view('author', compact('user'));
     }
 
-    public function fileUpload(Request $request) {
-    
+    public function profilePic(Request $request, $id) {
         $this->validate($request, [
     
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -96,14 +95,15 @@ class AuthorController extends Controller
     
         $image = $request->file('image');
     
-        $input['imagename'] = time().'.'.$image->getClientOriginalExtension();
+        $filename = time().'.'.$image->getClientOriginalExtension();
     
-        $destinationPath = public_path('/images');
+        $destinationPath = public_path('/storage/user_images');
     
-        $image->move($destinationPath, $input['imagename']);
+        $image->move($destinationPath, $filename);
     
-    
-        $this->postImage->add($input);
+        $user = User::find($id);
+        $user->image = $filename;
+        $user->save();
     
     
         return back()->with('success','Image Upload successful');
