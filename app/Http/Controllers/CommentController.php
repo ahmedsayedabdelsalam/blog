@@ -45,9 +45,8 @@ class CommentController extends Controller
             // $comment->post_id = $request->get('post_id');  // this method causes bad injection
             $comment->content = $request->get('content');
             $comment->save();
+            return back();
         }
-
-         return back();
     }
 
     /**
